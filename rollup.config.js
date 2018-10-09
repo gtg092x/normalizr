@@ -1,8 +1,10 @@
 import babel from 'rollup-plugin-babel';
 import filesize from 'rollup-plugin-filesize';
 import { minify } from 'uglify-es';
-import { name } from './package.json';
+import { rollup } from './package.json';
 import uglify from 'rollup-plugin-uglify';
+
+const { name } = rollup;
 
 const isProduction = process.env.NODE_ENV === 'production';
 

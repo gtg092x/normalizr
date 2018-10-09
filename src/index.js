@@ -46,11 +46,14 @@ export const normalize = (input, schema) => {
     throw new Error(`Unexpected input given to normalize. Expected type to be "object", found "${typeof input}".`);
   }
 
-  const entities = {};
-  const context = { entities };
+  let entities = {};
+  const context = { entities, onComplete: (i) => i };
   const addEntity = addEntities(entities);
 
   const result = visit(input, input, null, schema, addEntity, context);
+  if (context.onComplete) {
+    entities = context.onComplete(entities, context);
+  }
   return { entities, result };
 };
 
